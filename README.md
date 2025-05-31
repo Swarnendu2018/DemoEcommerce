@@ -22,3 +22,9 @@ git add . : This command used to add changes in git
 git commit -m "your message" : This command used to add command before push
 
 git push origin : This command used to push changes.
+
+# Useful Lint command
+
+For install eslint : npm install eslint --save-dev
+Check Lint issue : npx eslint --lint
+autofix lint issue : npx eslint . --fix
