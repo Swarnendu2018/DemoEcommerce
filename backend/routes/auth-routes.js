@@ -5,9 +5,6 @@ const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-
-
-
 // router.get('/users',(req,res) => {
 
 // })
