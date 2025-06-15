@@ -1,0 +1,11 @@
+<h2>Upload Product</h2>
+<form (submit)="uploadProduct()" enctype="multipart/form-data">
+    <input type="text" placeholder="Product Name" name="name" id="product-name" [(ngModel)]="product.name" required>
+    <input type="text" placeholder="Product Description" name="description" id="product-description" [(ngModel)]="product.description" required>
+    <input type="number" placeholder="Price" name="price" id="" [(ngModel)]="product.price" required>
+    <input type="text" placeholder="Category" name="category" id="" [(ngModel)]="product.category" required>
+    <input type="number" placeholder="Stock" name="stock" id="" [(ngModel)]="product.stock" required>
+
+    <input type="file" (change)="onFileChange($event)" accept="image/*" required>
+    <button type="submit">Upload</button>
+</form>
