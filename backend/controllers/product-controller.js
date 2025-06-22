@@ -1,19 +1,33 @@
 const Product = require('./../model/product-model');
 
+module.exports = {
+    getAllProducts: async (req, res) => {
+        const product = await Product.find();
+        res.json(product);
+    },
+    createProduct: async (req, res) => {
+        const { name, description, price, category, stock } = req.body;
+        const imageUrl = req.file ? req.file.path : '';
 
-exports.getAllProducts = async (req,res) => {
-    const product = await Product.find();
-    res.json(product);
-}
+        const product = new Product({ name, description, price, category, stock, imageUrl });
+        await product.save();
 
-exports.createProduct = async (req,res) => {
-    const {name,description,price,category,stock} = req.body;
+        res.status(201).json(product);
+    }
+};
+// exports.getAllProducts = async (req, res) => {
+//     const product = await Product.find();
+//     res.json(product);
+// };
 
-    const imageUrl = req.file ? req.file.path : '';
+// exports.createProduct = async (req, res) => {
+//     const { name, description, price, category, stock } = req.body;
 
-    const product = new Product({name,description,price,category,stock,imageUrl});
+//     const imageUrl = req.file ? req.file.path : '';
 
-    await product.save();
+//     const product = new Product({ name, description, price, category, stock, imageUrl });
 
-    res.status(201).json(product);
-}
+//     await product.save();
+
+//     res.status(201).json(product);
+// };
