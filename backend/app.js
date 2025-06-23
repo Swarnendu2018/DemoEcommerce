@@ -25,5 +25,5 @@ const port = process.env.PORT;
 
 app.listen(port,()=>{
     console.log(`app running on PORT:${port}`);
-    console.log(`Api Doc available at http://localhost:${port}/api-docs`)
+    console.log(`Api Doc available at http://localhost:${port}/api-docs`);
 });
