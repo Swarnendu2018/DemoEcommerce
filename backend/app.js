@@ -11,6 +11,7 @@ const app = express();
 
 const authRoute = require('./routes/auth-routes');
 const productRoute = require('./routes/product-roures');
+const addressRoute = require('./routes/address-routes');
 
 app.use(cors());
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/uploads',express.static('uploads'));
 app.use('/auth',authRoute);
 app.use('/product',productRoute);
+app.use('/address',addressRoute);
 
 swaggerSetup(app);
 
