@@ -12,6 +12,15 @@ const swaggerDefinition = {
         version: '1.0.0',
         description: 'This is a rest api application made with Express and Mongodb, Document with Swagger'
     },
+    components:{
+        securitySchemes: {
+            bearerAuth: {
+                type: "http",
+                scheme: "bearer",
+                bearerFormat: "JWT"
+            }
+        }
+    },
     servers:[{
         url: 'http://localhost:3000'
     }]

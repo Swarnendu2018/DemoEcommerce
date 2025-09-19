@@ -12,6 +12,8 @@ const authMiddleware = require('../middlewares/auth');
  * /product:
  *   get:
  *     summary: Retrieve a list of products
+ *     security:
+ *          - bearerAuth: []
  *     description: Get all products from the database
  *     responses:
  *       200:
