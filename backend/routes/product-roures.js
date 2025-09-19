@@ -5,6 +5,7 @@ const router = express.Router();
 const {getAllProducts, createProduct} = require('./../controllers/product-controller');
 
 const upload = require('./../middlewares/multer-config');
+const authMiddleware = require('../middlewares/auth');
 
 /**
  * @swagger
@@ -45,7 +46,7 @@ const upload = require('./../middlewares/multer-config');
  *                     example: "5"
  */
 
-router.get('/',getAllProducts);
+router.get('/',authMiddleware,getAllProducts);
 
 router.post('/new-product',upload.single('image'),createProduct);
 
