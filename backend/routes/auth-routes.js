@@ -5,50 +5,6 @@ const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-/**
- * @swagger
- * /auth/register:
- *   post:
- *     summary: Register a new user
- *     description: Create a new user account
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "John Doe"
- *               email:
- *                 type: string
- *                 example: "john.doe@example.com"
- *               password:
- *                 type: string
- *                 example: "password123"
- *     responses:
- *       200:
- *         description: User registered successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 _id:
- *                   type: string
- *                   example: "123345677"
- *                 name:
- *                   type: string
- *                   example: "John Doe"
- *                 email:
- *                   type: string
- *                   example: "john.doe@example.com"
- *                 password:
- *                   type: string
- *                   example: "password123"
- */
-
 router.post('/register', async (req, res) => {
 
     const { name, email, password } = req.body;
@@ -86,44 +42,6 @@ router.post('/register', async (req, res) => {
     }
 
 });
-
-/**
- * @swagger
- * /auth/login:
- *   post:
- *     summary: login a existing user
- *     description: Login to a user account
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 example: "john.doe@example.com"
- *               password:
- *                 type: string
- *                 example: "password123"
- *     responses:
- *       200:
- *         description: Login successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 _id:
- *                   type: string
- *                   example: "123345677"
- *                 email:
- *                   type: string
- *                   example: "john.doe@example.com"
- *                 password:
- *                   type: string
- *                   example: "password123"
- */
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;

@@ -1,0 +1,285 @@
+openapi: 3.0.0
+info:
+  title: E-commerce API
+  version: 1.0.0
+  description: API for managing ecommerce application
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    SignUp:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          example: "john.doe@example.com"
+        password:
+          type: string
+          example: "password123"
+    SignUpResp:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "68cee36a19f08778f81a7e7b"
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          example: "john.doe@example.com"
+        role:
+          type: string
+          example: "password123"
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "john.doe@example.com"
+        password:
+          type: string
+          example: "password123"
+    Address:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "123345677"
+        street:
+          type: string
+          example: "123"
+        city:
+          type: string
+          example: "Kolkata"
+        state:
+          type: string
+          example: "West Bengal"
+        postalCode:
+          type: string
+          example: "700001"
+        country:
+          type: string
+          example: "India"
+        isDefault:
+          type: boolean
+          example: true
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "123345677"
+        name:
+          type: string
+          example: "Peter England Shirt"
+        description:
+          type: string
+          example: "Cotton slim-fit shirt"
+        price:
+          type: string
+          example: "999"
+        category:
+          type: string
+          example: "Apparel"
+        imageUrl:
+          type: string
+          example: "uploads/abc.jpg"
+        stock:
+          type: number
+          example: 5
+
+
+paths:
+  /auth/login:
+    post:
+      summary: User login
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: Login successfull
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Login success"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNjNTgxNDQ3ZDMzODg2NDU5MDY5OWIiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NTgzNTU0MTUsImV4cCI6MTc1ODM1OTAxNX0.72UJrEFo2-wyGjAXm_gCbAMRqQQsRiH7bc8Zdk0hRNg"
+                  user:
+                    $ref: '#/components/schemas/SignUpResp'
+  /auth/register:
+    post:
+      summary: New User Registration
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+      responses:
+        '200':
+          description: User Registration successfull
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User Saved Succesfully"
+                  user:
+                    $ref: '#/components/schemas/SignUpResp'
+  /product:
+    get:
+      summary: Get All products
+      tags:
+        - Product
+      description: Retrieves all product for the authenticated user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /address/add:
+    post:
+      summary: Add a new address
+      tags:
+        - User Address
+      description: Adds a new address to the user's account
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+      responses:
+        '200':
+          description: Address added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Address added successfully"
+                  address:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Address'
+
+  /address:
+    get:
+      summary: Get all addresses
+      tags:
+        - User Address
+      description: Retrieves all addresses for the authenticated user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of addresses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+
+  /address/{addressId}:
+    put:
+      summary: Update an address
+      tags:
+        - User Address
+      description: Updates a specific address by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: addressId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+      responses:
+        '200':
+          description: Address updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Address Updated Successfully"
+                  address:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Address'
+
+    delete:
+      summary: Delete an address
+      tags:
+        - User Address
+      description: Deletes a specific address by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: addressId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Address deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Address deleted successfully"
+                  address:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Address'
