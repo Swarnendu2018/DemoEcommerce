@@ -42,7 +42,7 @@ components:
           example: "john.doe@example.com"
         role:
           type: string
-          example: "password123"
+          example: "admin/vendor/user"
     Login:
       type: object
       properties:
@@ -165,6 +165,79 @@ paths:
       responses:
         '200':
           description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /product/{productId}:
+    get:
+      summary: Get specific product
+      tags:
+        - Product
+      description: Retrieves specific product for the authenticated user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    patch:
+      summary: update specific product
+      tags:
+        - Product
+      description: Update specific product for the authenticated user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    delete:
+      summary: Delete specific product
+      tags:
+        - Product
+      description: Delete specific product for the authenticated user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: products
           content:
             application/json:
               schema:

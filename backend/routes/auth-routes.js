@@ -7,15 +7,7 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
 
-    const { name, email, password } = req.body;
-
-    // const {name,email,password,confirmPassword} = req.body;
-
-    // if(password !== confirmPassword){
-    //     return res.status(400).json({message:'Passwords do not match'});
-    // }
-
-    // const hashedPassword = await bcrypt.hash(password,10);
+    const { name, email, password, role } = req.body;
 
     try {
         const ExistingUser = await User.findOne({ email });
@@ -24,7 +16,7 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'User Already Exist' });
         }
 
-        const newUser = new User({ name, email, password });
+        const newUser = new User({ name, email, password, role });
 
         await newUser.save();
 
@@ -60,7 +52,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Invalid Password Credentials' });
         }
 
-        const payload = { userId: user.id, name: user.name };
+        const payload = { userId: user.id, name: user.name, role: user.role };
 
         const token = jwt.sign(payload, process.env.JWT_Secret, { expiresIn: '1h' });
 

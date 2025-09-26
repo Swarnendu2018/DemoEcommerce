@@ -20,6 +20,14 @@ const addressRoute = require('./routes/address-routes');
 app.use(cors());
 app.use(express.json());
 
+// app.use('/',(req,res)=>{
+//     res.json({message:"Server running"});
+// });
+
+app.use('/health',(req,res)=>{
+    res.json({message:"Everything running perfectly "});
+})
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/uploads',express.static('uploads'));
