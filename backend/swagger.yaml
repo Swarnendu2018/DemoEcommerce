@@ -136,8 +136,30 @@ components:
           example: "Product added to a cart"
         cart:
           $ref: '#/components/schemas/Cart'
-
-
+    IncreaseQuantityCartResp:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Product Quantity Increased"
+        cart:
+          $ref: '#/components/schemas/Cart'
+    DecreaseQuantityCartResp:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Product Quantity Decreased"
+        cart:
+          $ref: '#/components/schemas/Cart'
+    DeleteProductCartResp:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Product deleted to a cart"
+        cart:
+          $ref: '#/components/schemas/Cart'
 paths:
   /auth/login:
     post:
@@ -372,6 +394,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddToCartResp'
+  /cart/increase/{productId}:
+    patch:
+      summary: increase product quantity in a cart
+      tags:
+        - Add to cart
+      description: increase product quantity in a cart
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product deleted successfully from cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncreaseQuantityCartResp'
+  /cart/decrease/{productId}:
+    patch:
+      summary: decrease product quantity in a cart
+      tags:
+        - Add to cart
+      description: decrease product quantity in a cart
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product deleted successfully from cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecreaseQuantityCartResp'
+  /cart/{productId}:
+    delete:
+      summary: delete product from a cart
+      tags:
+        - Add to cart
+      description: delete a product from a cart
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product deleted successfully from cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteProductCartResp'
   /address/add:
     post:
       summary: Add a new address
