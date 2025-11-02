@@ -457,6 +457,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteProductCartResp'
+  /order:
+    get:
+      summary: Get all orders
+      tags:
+        - User Orders
+      description: Retrieves all orders for the authenticated user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+  /order/checkout:
+    post:
+      summary: Add new order
+      tags:
+        - User Orders
+      description: Adds a new address to the user's account
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+      responses:
+        '200':
+          description: Address added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Address added successfully"
+                  address:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Address'
   /address/add:
     post:
       summary: Add a new address
