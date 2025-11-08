@@ -1,1 +1,29 @@
-<p>sigup-login works!</p>
+<div class="container-fluid vh-100 overflow-hidden">
+  <div class="row h-100 m-0">
+    
+    <!-- Left: Login Form -->
+    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+      <div class="w-75">
+        <h2 class="mb-4 fw-bold text-center">Welcome Back</h2>
+        <form [formGroup]="logInForm" (ngSubmit)="OnSubmit()">
+          <div class="form-group mb-3">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" placeholder="you@example.com" formControlName="email">
+          </div>
+          <div class="form-group mb-4">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="••••••••" formControlName="password">
+          </div>
+          <button type="submit" class="btn btn-dark w-100" [disabled]="loading">Sign In</button>
+          <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right: Fashion Image -->
+    <div class="col-6 d-none d-lg-block p-0">
+      <img src="assets/fashion-login.png" alt="Fashion model" class="img-fluid h-90 w-100" style="object-fit: cover;">
+    </div>
+
+  </div>
+</div>

@@ -33,7 +33,7 @@ export class ProductUploadComponent {
     formData.append('stock', this.product.stock);
     formData.append('image', this.product.imageUrl);
 
-    this.http.post('http://localhost:3000/product/new-product', formData).subscribe(
+    this.http.post('http://localhost:3000/product/', formData).subscribe(
       res=>console.log('Upload Success:',res),
       err=>console.error('Upload Failed:',err)
     );
